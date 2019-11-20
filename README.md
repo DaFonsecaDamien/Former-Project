@@ -28,7 +28,7 @@ Ce projet à été réaliser dans le contexte de la 2ème année du BTS SIO SLAM
 
 #### A faire :
 - Télécharger le dossier sur github.
-- L'extraire et mettre le dossier "FormerProject" dans Wamp/Xamp.
+- L'extraire renommer le dossier en "FormerProject" et mettre le dossier "FormerProject" dans Wamp/Xamp.
 - Si la config n'est pas optimal regardez dans le projet - le fichier AppConfig pourra vous être utile.
 
 ## Ce qui est fait :+1:
