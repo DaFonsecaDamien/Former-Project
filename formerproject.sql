@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 18 nov. 2019 à 16:28
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Hôte : 127.0.0.1
+-- Généré le :  jeu. 21 nov. 2019 à 00:04
+-- Version du serveur :  10.4.6-MariaDB
+-- Version de PHP :  7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,22 +30,13 @@ USE `formerproject`;
 -- Structure de la table `chat`
 --
 
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE IF NOT EXISTS `chat` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `chat` (
+  `id` int(10) NOT NULL,
   `pseudo` varchar(255) COLLATE utf8_bin NOT NULL,
   `objet` varchar(255) COLLATE utf8_bin NOT NULL,
   `contenu` varchar(255) COLLATE utf8_bin NOT NULL,
-  `avatarUser` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Déchargement des données de la table `chat`
---
-
-INSERT INTO `chat` (`id`, `pseudo`, `objet`, `contenu`, `avatarUser`) VALUES
-(6, 'ADMIN', 'Bonjour', 'Bienvenue à vous tous !!!', 'admin.png');
+  `avatarUser` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -53,23 +44,20 @@ INSERT INTO `chat` (`id`, `pseudo`, `objet`, `contenu`, `avatarUser`) VALUES
 -- Structure de la table `event`
 --
 
-DROP TABLE IF EXISTS `event`;
-CREATE TABLE IF NOT EXISTS `event` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `event` (
+  `id` int(10) NOT NULL,
   `date` date NOT NULL,
   `titre` varchar(255) COLLATE utf8_bin NOT NULL,
   `contenu` varchar(255) COLLATE utf8_bin NOT NULL,
-  `photo` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `photo` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `event`
 --
 
 INSERT INTO `event` (`id`, `date`, `titre`, `contenu`, `photo`) VALUES
-(1, '2019-11-17', 'Parking', 'Nouveau parking pour les élèves', 'https://resources.parkapp.com/images/parkings/585809526b67d.png\r\n'),
-(2, '2019-11-17', 'BTS', 'Venez chercher les résultats', 'default.png');
+(4, '2019-11-17', 'La cantine ouvre ces portes', 'Cantine avec de la bonne nourriture', 'https://www.ville-rinxent.fr/wp-content/uploads/2019/08/cantine-midi-720x340.jpg');
 
 -- --------------------------------------------------------
 
@@ -77,21 +65,12 @@ INSERT INTO `event` (`id`, `date`, `titre`, `contenu`, `photo`) VALUES
 -- Structure de la table `recuperation`
 --
 
-DROP TABLE IF EXISTS `recuperation`;
-CREATE TABLE IF NOT EXISTS `recuperation` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `recuperation` (
+  `id` int(10) NOT NULL,
   `emailUser` varchar(30) COLLATE utf8_bin NOT NULL,
   `code` int(8) NOT NULL,
-  `confirm` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Déchargement des données de la table `recuperation`
---
-
-INSERT INTO `recuperation` (`id`, `emailUser`, `code`, `confirm`) VALUES
-(1, 'a@a.com', 23342492, 0);
+  `confirm` int(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -99,30 +78,84 @@ INSERT INTO `recuperation` (`id`, `emailUser`, `code`, `confirm`) VALUES
 -- Structure de la table `utilisateurs`
 --
 
-DROP TABLE IF EXISTS `utilisateurs`;
-CREATE TABLE IF NOT EXISTS `utilisateurs` (
-  `id` smallint(10) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) COLLATE utf8_bin NOT NULL,
-  `prenom` varchar(30) COLLATE utf8_bin NOT NULL,
-  `email` varchar(40) COLLATE utf8_bin NOT NULL,
-  `adresse` varchar(50) COLLATE utf8_bin NOT NULL,
+CREATE TABLE `utilisateurs` (
+  `id` smallint(10) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_bin NOT NULL,
+  `prenom` varchar(255) COLLATE utf8_bin NOT NULL,
+  `email` varchar(255) COLLATE utf8_bin NOT NULL,
+  `adresse` varchar(255) COLLATE utf8_bin NOT NULL,
   `telephone` int(10) NOT NULL,
   `dateNaissance` date NOT NULL,
   `password` varchar(32) COLLATE utf8_bin NOT NULL,
   `role` varchar(5) COLLATE utf8_bin NOT NULL DEFAULT 'GUEST',
   `dateConnexion` date DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT 'default.png',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `avatar` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT 'default.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `adresse`, `telephone`, `dateNaissance`, `password`, `role`, `dateConnexion`, `avatar`) VALUES
-(12, '   admin', 'admin', 'admin@admin', 'Aucune', 600000000, '2019-10-15', '7658d426babd41d3295677c901d0ae7f', 'ADMIN', '2019-11-18', 'default.png'),
-(23, ' aa ', 'aa', 'a@a.com', '54 rue ', 600000000, '2019-11-13', '3d558122fcac9ea5fdc9ee8eccf8f433', 'GUEST', '2019-11-17', 'default.png'),
-(24, 'DaFonseca', 'Damien', 'demmonx99@msn.com', '54 rue de pologne', 600000000, '2019-11-14', 'ebc58ab2cb4848d04ec23d83f7ddf985', 'GUEST', '2019-11-17', 'default.png');
+(1, 'DaFonseca', 'Damien', 'da.fonseca.damien@gmail.com', '54 rue de pologne', 649760542, '1999-01-10', '393c0d330217243cbbc38de54ebba1b3', 'GUEST', '2019-11-20', 'default.png'),
+(2, 'Marie', 'Pirodon', 'marie.pirodon31@gmail.com', 'Aucune', 648377426, '2019-11-04', 'f0d9f155c4361621f5ba390d4e03f7e2', 'GUEST', NULL, 'default.png'),
+(3, 'Former', 'Student', 'former.student.project@gmail.com', '5 avenue du Général de Gaulle 93440 Dugny', 648377426, '0000-00-00', 'b117e99b778af0ee61c55600895318d8', 'ADMIN', '2019-11-20', 'admin.png');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `recuperation`
+--
+ALTER TABLE `recuperation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT pour la table `event`
+--
+ALTER TABLE `event`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `recuperation`
+--
+ALTER TABLE `recuperation`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  MODIFY `id` smallint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
